@@ -215,6 +215,9 @@ export default {
         },
         isEn () {
             return this.$store.state.isEn
+        },
+        clusterPerm () {
+            return this.$store.state.cluster.clusterPerm
         }
     },
     watch: {
@@ -244,14 +247,14 @@ export default {
 
         this.getNodeList()
         this.fetchNodeList4Copy()
-        if (!this.curCluster?.permissions?.view) {
+        if (!this.clusterPerm[this.curCluster?.clusterID]?.policy?.view) {
             await this.$store.dispatch('getResourcePermissions', {
                 project_id: this.projectId,
                 policy_code: 'view',
                 // eslint-disable-next-line camelcase
                 resource_code: this.curCluster?.cluster_id,
                 resource_name: this.curCluster?.name,
-                resource_type: `cluster_${this.curCluster?.environment === 'stag' ? 'test' : 'prod'}`
+                resource_type: `cluster_${this.curCluster?.environment === 'prod' ? 'prod' : 'test'}`
             }).catch(err => {
                 this.exceptionCode = {
                     code: err.code,
@@ -716,7 +719,7 @@ export default {
                     policy_code: 'create',
                     resource_code: this.curClusterInPage.cluster_id,
                     resource_name: this.curClusterInPage.name,
-                    resource_type: `cluster_${this.curClusterInPage.environment === 'stag' ? 'test' : 'prod'}`
+                    resource_type: `cluster_${this.curClusterInPage.environment === 'prod' ? 'prod' : 'test'}`
                 })
             }
 
@@ -785,7 +788,7 @@ export default {
                     policy_code: 'edit',
                     resource_code: this.curClusterInPage.cluster_id,
                     resource_name: this.curClusterInPage.name,
-                    resource_type: `cluster_${this.curClusterInPage.environment === 'stag' ? 'test' : 'prod'}`
+                    resource_type: `cluster_${this.curClusterInPage.environment === 'prod' ? 'prod' : 'test'}`
                 })
             }
 
@@ -851,7 +854,7 @@ export default {
                     policy_code: 'edit',
                     resource_code: this.curClusterInPage.cluster_id,
                     resource_name: this.curClusterInPage.name,
-                    resource_type: `cluster_${this.curClusterInPage.environment === 'stag' ? 'test' : 'prod'}`
+                    resource_type: `cluster_${this.curClusterInPage?.environment === 'prod' ? 'prod' : 'test'}`
                 })
             }
 
@@ -987,7 +990,7 @@ export default {
                     policy_code: 'edit',
                     resource_code: this.curClusterInPage.cluster_id,
                     resource_name: this.curClusterInPage.name,
-                    resource_type: `cluster_${this.curClusterInPage.environment === 'stag' ? 'test' : 'prod'}`
+                    resource_type: `cluster_${this.curClusterInPage?.environment === 'prod' ? 'prod' : 'test'}`
                 })
             }
 
@@ -1055,7 +1058,7 @@ export default {
                     policy_code: 'edit',
                     resource_code: this.curClusterInPage.cluster_id,
                     resource_name: this.curClusterInPage.name,
-                    resource_type: `cluster_${this.curClusterInPage.environment === 'stag' ? 'test' : 'prod'}`
+                    resource_type: `cluster_${this.curClusterInPage?.environment === 'prod' ? 'prod' : 'test'}`
                 })
             }
 
@@ -1132,7 +1135,7 @@ export default {
                     policy_code: 'view',
                     resource_code: this.curClusterInPage.cluster_id,
                     resource_name: this.curClusterInPage.name,
-                    resource_type: `cluster_${this.curClusterInPage.environment === 'stag' ? 'test' : 'prod'}`
+                    resource_type: `cluster_${this.curClusterInPage?.environment === 'prod' ? 'prod' : 'test'}`
                 })
             }
 
@@ -1212,7 +1215,7 @@ export default {
                     policy_code: 'edit',
                     resource_code: this.curClusterInPage.cluster_id,
                     resource_name: this.curClusterInPage.name,
-                    resource_type: `cluster_${this.curClusterInPage.environment === 'stag' ? 'test' : 'prod'}`
+                    resource_type: `cluster_${this.curClusterInPage?.environment === 'prod' ? 'prod' : 'test'}`
                 })
             }
 
@@ -1335,7 +1338,7 @@ export default {
                     policy_code: 'edit',
                     resource_code: this.curClusterInPage.cluster_id,
                     resource_name: this.curClusterInPage.name,
-                    resource_type: `cluster_${this.curClusterInPage.environment === 'stag' ? 'test' : 'prod'}`
+                    resource_type: `cluster_${this.curClusterInPage?.environment === 'prod' ? 'prod' : 'test'}`
                 })
             }
 
@@ -1408,7 +1411,7 @@ export default {
                     policy_code: 'edit',
                     resource_code: this.curClusterInPage.cluster_id,
                     resource_name: this.curClusterInPage.name,
-                    resource_type: `cluster_${this.curClusterInPage.environment === 'stag' ? 'test' : 'prod'}`
+                    resource_type: `cluster_${this.curClusterInPage?.environment === 'prod' ? 'prod' : 'test'}`
                 })
             }
 
@@ -1430,7 +1433,7 @@ export default {
                     policy_code: 'edit',
                     resource_code: this.curClusterInPage.cluster_id,
                     resource_name: this.curClusterInPage.name,
-                    resource_type: `cluster_${this.curClusterInPage.environment === 'stag' ? 'test' : 'prod'}`
+                    resource_type: `cluster_${this.curClusterInPage?.environment === 'prod' ? 'prod' : 'test'}`
                 })
             }
 
@@ -1542,7 +1545,7 @@ export default {
                     policy_code: 'edit',
                     resource_code: this.curClusterInPage.cluster_id,
                     resource_name: this.curClusterInPage.name,
-                    resource_type: `cluster_${this.curClusterInPage.environment === 'stag' ? 'test' : 'prod'}`
+                    resource_type: `cluster_${this.curClusterInPage?.environment === 'prod' ? 'prod' : 'test'}`
                 })
             }
 
@@ -1797,7 +1800,7 @@ export default {
                     policy_code: 'view',
                     resource_code: this.curClusterInPage.cluster_id,
                     resource_name: this.curClusterInPage.name,
-                    resource_type: `cluster_${this.curClusterInPage.environment === 'stag' ? 'test' : 'prod'}`
+                    resource_type: `cluster_${this.curClusterInPage?.environment === 'prod' ? 'prod' : 'test'}`
                 })
             }
 
