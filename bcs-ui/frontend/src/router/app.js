@@ -3,7 +3,6 @@
  */
 
 const App = () => import(/* webpackChunkName: 'app-entry' */'@/views/app')
-
 const childRoutes = [
     // domain/bcs/projectId/app 应用页面
     {
