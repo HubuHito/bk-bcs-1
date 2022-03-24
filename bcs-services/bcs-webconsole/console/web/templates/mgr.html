@@ -197,6 +197,7 @@
                     this.watchMessage()
                     this.watchShortcut()
                     self = this
+                    const h = this.$createElement
                     $.getJSON(cluster_url, function (result) {
                         if (result.code != 0) {
                             console.log(result.message)
@@ -212,7 +213,19 @@
                             })
                         }
                     }).fail(function (result) {
-                        self.$bkMessage({ theme: 'error', message: result.responseJSON.message, delay: 0 })
+                        self.$bkMessage({ theme: 'error', message: h('span', {}, [
+                            result.responseJSON.message,
+                            h('a', { 
+                                style: { 
+                                    'text-decoration': 'none', 
+                                    'color': '#3a84ff',
+                                    'margin-left': '20px'
+                                },
+                                attrs: {
+                                    href: 'xxx.xxx.com'
+                                }
+                            }, ['前往登录'])
+                        ]), delay: 0 })
                     })
 
                 },

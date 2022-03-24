@@ -113,6 +113,15 @@
             border-style: inset;
             background: #226b8a;
         }
+        .exit-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #exit_helper {
+            color: #3a84ff;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -123,8 +132,10 @@
         <div class="blur"></div>
         <div id="reconnect">
             <h2>连接已经断开</h2>
-            <p id="exit_message">BCS Console 网络断开，请检查网络{{ .settings.COMMON_EXCEPTION_MSG }}</p>
-            <a id="exit_helper" href="{{ .settings.SITE_STATIC_URL }}/user/login/">前往登入</a>
+            <div class="exit-wrapper">
+                <p id="exit_message">BCS Console 网络断开，请检查网络{{ .settings.COMMON_EXCEPTION_MSG }}</p>
+                <a id="exit_helper" href="{{ .settings.SITE_STATIC_URL }}/user/login/">前往登入</a>
+            </div>
             <button id="reload_btn" onclick="location.reload()">重新加载 &#x27f3;</button>
         </div>
     </div>
