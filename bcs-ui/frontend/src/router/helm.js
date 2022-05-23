@@ -17,6 +17,10 @@ const helmTplInstance = () => import(/* webpackChunkName: 'helm' */'@/views/helm
 // Helm app详情
 const helmAppDetail = () => import(/* webpackChunkName: 'helm' */'@/views/helm/app-detail.vue')
 
+// helm repo
+const helmRepo = () => import(/* webpackChunkName: 'helm' */'@/views/helm/repo.vue')
+const helmRepoEdit = () => import(/* webpackChunkName: 'helm' */'@/views/helm/repo-edit.vue')
+
 const childRoutes = [
     {
         path: ':projectCode/helm',
@@ -51,6 +55,21 @@ const childRoutes = [
         meta: {
             menuId: 'helms'
         }
+    },
+    {
+        path: ':projectCode/helm/repo',
+        name: 'helmRepo',
+        component: helmRepo,
+        meta: {
+            title: window.i18n.t('仓库'),
+            hideBack: true
+        }
+    },
+    {
+        path: ':projectCode/helm/repo/edit/:name?',
+        name: 'helmEdit',
+        props: true,
+        component: helmRepoEdit
     }
 ]
 

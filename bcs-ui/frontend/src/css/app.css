@@ -2663,3 +2663,7 @@ div::-webkit-scrollbar-thumb {
 .content-loading {
     z-index: 999 !important;
 }
+
+.bcs-primary-btn {
+    min-width: 88px;
+}

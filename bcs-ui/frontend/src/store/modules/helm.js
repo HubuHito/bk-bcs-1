@@ -11,6 +11,14 @@
 
 import http from '@/api'
 import { json2Query } from '@/common/util'
+import {
+    helmRepoList,
+    createHelmRepo,
+    editHelmRepo,
+    deleteHelmRepo,
+    refreshHelmRepo,
+    helmRepoDetail
+} from '@/api/base'
 
 export default {
     namespaced: true,
@@ -536,7 +544,31 @@ export default {
          */
         getNotes (context, { clusterId, projectId, namespaceName, releaseName }, config = {}) {
             return http.get(`${DEVOPS_BCS_API_URL}/api/helm/projects/${projectId}/clusters/${clusterId}/namespaces/${namespaceName}/releases/${releaseName}/notes/`, {}, config)
-        }
+        },
 
+        async helmRepoList (ctx, param) {
+            const data = await helmRepoList(param).catch(() => [])
+            return data
+        },
+        async createHelmRepo (ctx, param) {
+            const result = await createHelmRepo(param).then(() => true).catch(() => false)
+            return result
+        },
+        async editHelmRepo (ctx, param) {
+            const result = await editHelmRepo(param).then(() => true).catch(() => false)
+            return result
+        },
+        async deleteHelmRepo (ctx, param) {
+            const result = await deleteHelmRepo(param).then(() => true).catch(() => false)
+            return result
+        },
+        async refreshHelmRepo (ctx, param) {
+            const result = await refreshHelmRepo(param).then(() => true).catch(() => false)
+            return result
+        },
+        async helmRepoDetail (ctx, param) {
+            const data = await helmRepoDetail(param).catch(() => ({}))
+            return data
+        }
     }
 }

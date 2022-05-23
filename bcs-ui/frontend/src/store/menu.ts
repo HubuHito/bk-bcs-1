@@ -251,6 +251,11 @@ const menu: IMenu = {
                     name: chart,
                     routeName: 'helmTplList',
                     id: 'helmTplList'
+                },
+                {
+                    name: window.i18n.t('仓库'),
+                    routeName: 'helmRepo',
+                    id: 'helmRepo'
                 }
             ],
             id: 'HELM'

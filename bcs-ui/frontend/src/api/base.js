@@ -84,6 +84,14 @@ export const getTokens = request('get', `${prefix}/usermanager/v1/users/$usernam
 export const userPerms = request('post', '/api/iam/user_perms/')
 export const userPermsByAction = request('post', '/api/iam/user_perms/actions/$actionId/')
 
+// helm repo
+export const helmRepoList = request('get', '/api/helm/projects/$projectId/repos/')
+export const helmRepoDetail = request('get', '/api/helm/projects/$projectId/repos/$repoName/')
+export const createHelmRepo = request('post', '/api/helm/projects/$projectId/repos/')
+export const editHelmRepo = request('put', '/api/helm/projects/$projectId/repos/$repoName/')
+export const deleteHelmRepo = request('delete', '/api/helm/projects/$projectId/repos/$repoName/')
+export const refreshHelmRepo = request('post', '/api/helm/projects/$projectId/repos/$repoName/refresh/')
+
 export default {
     stdLogs,
     stdLogsDownload,
