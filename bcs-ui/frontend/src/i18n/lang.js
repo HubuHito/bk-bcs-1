@@ -734,7 +734,7 @@ export default {
     '输入命名空间，按Enter搜索': ['Enter namespace and press Enter'],
 
     // helm
-    'Helm Release列表': ['Helm Release'],
+    'Helm Release': ['Helm Release'],
     '如何使用Helm？': ['How to use Helm?'],
     '部署Helm Chart': ['Deploy Helm Chart'],
     '模板集默认图标': ['Icon'],
@@ -755,7 +755,7 @@ export default {
     '部署时间': ['Deploy Time'],
     '回滚失败': ['Rollback failure'],
     '与当前线上版本没有内容差异': ['No content difference from current online version'],
-    'Helm Chart仓库': ['Helm Chart Repo'],
+    'Helm Chart': ['Helm Chart'],
     '如何推送Helm Chart到项目仓库？': ['How to push Helm Chart to the project repo?'],
     '项目Chart仓库地址': ['Project Chart Repo Address'],
     '同步仓库': ['Sync Repo'],

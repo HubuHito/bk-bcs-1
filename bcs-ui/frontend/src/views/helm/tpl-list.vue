@@ -2,7 +2,7 @@
     <div class="biz-content">
         <div class="biz-top-bar">
             <div class="biz-tpl-title">
-                {{$t('Helm Chart仓库')}}
+                {{$t('Helm Chart')}}
             </div>
             <bk-guide>
                 <a href="javascript:void(0);" class="bk-text-button" @click.stop.prevent="showGuide">{{$t('如何推送Helm Chart到项目仓库？')}}</a>

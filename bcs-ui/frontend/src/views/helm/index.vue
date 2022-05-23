@@ -2,7 +2,7 @@
     <div class="biz-content">
         <div class="biz-top-bar">
             <div class="biz-helm-title">
-                {{$t('Helm Release列表')}}
+                {{$t('Helm Release')}}
             </div>
             <bk-guide>
                 <a class="bk-text-button" :href="PROJECT_CONFIG.doc.serviceAccess" target="_blank">{{$t('如何使用Helm？')}}</a>

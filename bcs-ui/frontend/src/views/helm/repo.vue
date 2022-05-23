@@ -34,7 +34,10 @@
                 <template #default="{ row }">
                     <div v-bk-tooltips="{ disabled: row.is_imported, content: $t('非拉管仓库，不允许操作') }">
                         <bk-button text :disabled="!row.is_imported" @click="handleEditRepo(row)">{{$t('编辑')}}</bk-button>
-                        <bk-button text :disabled="!row.is_imported" class="ml10" @click="handleRefreshRepo(row)">{{$t('刷新')}}</bk-button>
+                        <bk-button text
+                            :disabled="!row.is_imported"
+                            class="ml10"
+                            @click="handleRefreshRepo(row)">{{$t('刷新')}}</bk-button>
                         <bk-button text :disabled="!row.is_imported" class="ml10" @click="handleDeleteRepo(row)">{{$t('删除')}}</bk-button>
                     </div>
                 </template>
@@ -91,16 +94,18 @@
             }
             // 刷下仓库
             const handleRefreshRepo = async (row) => {
+                loading.value = true
                 const result = await $store.dispatch('helm/refreshHelmRepo', {
                     $repoName: row.name
                 })
                 if (result) {
                     $bkMessage({
                         theme: 'success',
-                        message: $i18n.t('删除成功')
+                        message: $i18n.t('刷新成功')
                     })
-                    handleGetRepoList()
+                    await handleGetRepoList()
                 }
+                loading.value = false
             }
             // 删除仓库
             const handleDeleteRepo = (row) => {
