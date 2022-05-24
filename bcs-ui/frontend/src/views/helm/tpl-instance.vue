@@ -558,6 +558,9 @@
             },
             clusterList () {
                 return this.$store.state.cluster.clusterList
+            },
+            repoName () {
+                return this.$route.query?.repo
             }
         },
         watch: {
@@ -853,7 +856,12 @@
                 if (!list.length) {
                     try {
                         const projectId = this.projectId
-                        const res = await this.$store.dispatch('helm/asyncGetTplList', projectId)
+                        const res = await this.$store.dispatch('helm/asyncGetTplList', {
+                            projectId,
+                            params: {
+                                repo_name: this.repoName
+                            }
+                        })
                         list = res.data
                     } catch (e) {
                         catchErrorHandler(e, this)

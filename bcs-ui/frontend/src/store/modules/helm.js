@@ -295,8 +295,8 @@ export default {
          *
          * @return {Promise} promise 对象
          */
-        getTplList (context, projectId, config = {}) {
-            const url = `${DEVOPS_BCS_API_URL}/api/bcs/k8s/configuration/${projectId}/helm/charts/`
+        getTplList (context, { projectId, params = {} }, config = {}) {
+            const url = `${DEVOPS_BCS_API_URL}/api/bcs/k8s/configuration/${projectId}/helm/charts/?${json2Query(params)}`
             return http.get(url, {}, config).then(res => {
                 const publicRepo = []
                 const privateRepo = []
@@ -325,8 +325,8 @@ export default {
          *
          * @return {Promise} promise 对象
          */
-        asyncGetTplList (context, projectId, config = {}) {
-            const url = `${DEVOPS_BCS_API_URL}/api/bcs/k8s/configuration/${projectId}/helm/charts/`
+        asyncGetTplList (context, { projectId, params = {} }, config = {}) {
+            const url = `${DEVOPS_BCS_API_URL}/api/bcs/k8s/configuration/${projectId}/helm/charts/?${json2Query(params)}`
             return http.get(url, {}, config)
         },
 

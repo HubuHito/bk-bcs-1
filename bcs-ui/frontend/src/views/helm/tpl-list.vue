@@ -46,13 +46,23 @@
 
         <div class="biz-content-wrapper biz-tpl-wrapper" style="padding: 0; margin: 0;" v-bkloading="{ isLoading: showLoading, opacity: 0.1 }">
             <template v-if="!showLoading">
-                <div class="biz-panel-header" style="padding: 20px;">
+                <div class="chart-header" style="padding: 20px;">
                     <div class="left">
                         <bk-button type="primary" @click="syncHelmTpl" :loading="isTplSynLoading">{{$t('同步仓库')}}</bk-button>
                         <span class="biz-tip ml5">{{$t('同步仓库中的Helm Chart')}}</span>
                         <a class="bk-text-button f12 ml10" href="javascript:void(0);" @click="getHelmDeops">{{$t('查看项目Chart仓库配置信息')}}</a>
                     </div>
                     <div class="right">
+                        <div class="repo-select mr5">
+                            <span class="select-prefix">{{$t('仓库')}}</span>
+                            <bcs-select v-model="repoName" :clearable="false" @change="getTplList">
+                                <bcs-option v-for="item in repoList"
+                                    :key="item.name"
+                                    :id="item.name"
+                                    :name="item.name">
+                                </bcs-option>
+                            </bcs-select>
+                        </div>
                         <div class="biz-search-input" style="width: 300px;">
                             <bk-input right-icon="bk-icon icon-search"
                                 :placeholder="$t('输入关键字，按Enter搜索')"
@@ -144,7 +154,7 @@
                                                             <td class="data">
                                                                 <bcs-popover placement="top" :delay="500">
                                                                     <p class="tpl-name">
-                                                                        <router-link class="bk-text-button bk-primary bk-button-small" :to="{ name: 'helmTplDetail', params: { tplId: template.id } }">{{template.name}}</router-link>
+                                                                        <router-link class="bk-text-button bk-primary bk-button-small" :to="{ name: 'helmTplDetail', params: { tplId: template.id }, query: { repo: repoName } }">{{template.name}}</router-link>
                                                                     </p>
                                                                     <template slot="content">
                                                                         <p>{{template.name}}</p>
@@ -177,7 +187,7 @@
                                                                     disabled: !template.annotations.only_for_platform || (tabActiveName === 'privateRepo')
                                                                 }">
                                                                     <router-link class="bk-button bk-primary mr5"
-                                                                        :to="template.annotations.only_for_platform ? {} : { name: 'helmTplInstance', params: { tplId: template.id } }"
+                                                                        :to="template.annotations.only_for_platform ? {} : { name: 'helmTplInstance', params: { tplId: template.id }, query: { repo: repoName } }"
                                                                         :disabled="template.annotations.only_for_platform">
                                                                         {{$t('部署')}}
                                                                     </router-link>
@@ -418,7 +428,9 @@
                     versions: []
                 },
                 isTplVersionLoading: false,
-                isVersionDetailLoading: false
+                isVersionDetailLoading: false,
+                repoName: '',
+                repoList: []
             }
         },
         computed: {
@@ -466,10 +478,17 @@
                 }
             }
         },
-        mounted () {
-            this.getTplList()
+        async mounted () {
+            await this.getRepoList()
+            await this.getTplList()
         },
         methods: {
+            async getRepoList () {
+                this.showLoading = true
+                this.repoList = await this.$store.dispatch('helm/helmRepoList')
+                this.repoName = this.repoList[0]?.name || ''
+                this.showLoading = false
+            },
             /**
              * 显示/隐藏模板仓库密码
              * @param  {object} repo 模板仓库
@@ -585,7 +604,12 @@
                 this.showLoading = true
 
                 try {
-                    const res = await this.$store.dispatch('helm/getTplList', projectId)
+                    const res = await this.$store.dispatch('helm/getTplList', {
+                        projectId,
+                        params: {
+                            repo_name: this.repoName
+                        }
+                    })
 
                     const publicRepo = []
                     const privateRepo = []
@@ -918,6 +942,34 @@
     }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
     @import './tpl-list.css';
+    .chart-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .right {
+            display: flex;
+            align-items: center;
+            .repo-select {
+                display: flex;
+                align-items: center;
+                min-width: 300px;
+            }
+            .bk-select {
+                background: #fff;
+                flex: 1;
+            }
+        }
+    }
+    .select-prefix {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 10px;
+        border: 1px solid #c4c6cc;
+        margin-right: -1px;
+        font-size: 12px;
+        height: 32px;
+    }
 </style>

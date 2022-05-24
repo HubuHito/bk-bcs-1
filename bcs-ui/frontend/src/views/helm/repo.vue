@@ -32,7 +32,7 @@
             <bcs-table-column :label="$t('创建时间')" prop="createdDate"></bcs-table-column>
             <bcs-table-column :label="$t('操作')" width="180">
                 <template #default="{ row }">
-                    <div v-bk-tooltips="{ disabled: row.is_imported, content: $t('非拉管仓库，不允许操作') }">
+                    <div v-bk-tooltips="{ disabled: row.is_imported, content: $t('非纳管仓库，不允许操作') }">
                         <bk-button text :disabled="!row.is_imported" @click="handleEditRepo(row)">{{$t('编辑')}}</bk-button>
                         <bk-button text
                             :disabled="!row.is_imported"
