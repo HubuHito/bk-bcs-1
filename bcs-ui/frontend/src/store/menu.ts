@@ -7,14 +7,14 @@ const metric = window.i18n.t('Metric管理')
 const app = window.i18n.t('应用')
 const network = window.i18n.t('网络')
 const resource = window.i18n.t('配置')
-const imageHub = window.i18n.t('仓库')
+const imageHub = window.i18n.t('镜像仓库')
 const publicImage = window.i18n.t('公共镜像')
 const projectImage = window.i18n.t('项目镜像')
 const operateAudit = window.i18n.t('操作审计')
 const eventQuery = window.i18n.t('事件查询')
 const monitor = window.i18n.t('容器监控')
-const release = window.i18n.t('Releases')
-const chart = window.i18n.t('Charts')
+const release = 'Releases'
+const chart = 'Charts'
 const crdcontroller = window.i18n.t('组件库')
 const logCollection = window.i18n.t('日志采集')
 const storage = window.i18n.t('存储')
@@ -253,7 +253,7 @@ const menu: IMenu = {
                     id: 'helmTplList'
                 },
                 {
-                    name: window.i18n.t('仓库'),
+                    name: 'Repositories',
                     routeName: 'helmRepo',
                     id: 'helmRepo'
                 }
